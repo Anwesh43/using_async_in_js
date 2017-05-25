@@ -4,7 +4,7 @@ const path = require('path')
 router.get('/test',(req,res)=>{
     setTimeout(()=>{
         res.send("hello")
-    },1000)
+    },3000)
 })
 const app = express()
 app.use('/app',router)
