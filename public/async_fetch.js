@@ -1,3 +1,4 @@
+const asyncFetchBlock = new AsyncBlock(200,200)
 async function getResponse(url){
     try {
         const res = await fetch(url)
@@ -10,6 +11,9 @@ async function getResponse(url){
     }
 
 }
-getResponse("http://localhost:8000/app/tes").then((data)=>{
+asyncFetchBlock.startLoading()
+getResponse("http://localhost:8000/app/test").then((data)=>{
+
     console.log(data)
+    asyncFetchBlock.setValue(data)
 })

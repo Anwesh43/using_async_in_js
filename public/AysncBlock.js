@@ -16,12 +16,15 @@ class AsyncBlock {
         if(!this.deg) {
             this.deg = 0
         }
-        if(this.isLoading) {
+        if(this.loading == true) {
+            console.log(this.deg)
+
             context.strokeStyle = 'black'
             context.save()
             context.beginPath()
+            context.lineWidth = this.w/15
             for(var i=0;i<120;i++) {
-                const r = Math.min(this.w,this.h)/3,x = r*Math.cos((deg+i)*Math.PI/180),y = r*Math.sin((deg+i)*Math.PI/180)
+                const r = Math.min(this.w,this.h)/6,x = this.w/2+r*Math.cos((this.deg+i)*Math.PI/180),y = this.h/2+r*Math.sin((this.deg+i)*Math.PI/180)
                 if(i == 0) {
                     context.moveTo(x,y)
                 }
@@ -29,14 +32,16 @@ class AsyncBlock {
                     context.lineTo(x,y)
                 }
             }
+            context.stroke()
             context.restore()
             this.deg+=10
         }
         else {
             context.fillStyle = 'black'
             context.font = context.font.replace(/\d{2}/,'30')
-            context.fillText(this.text,w/2-context.measureText(this.text).width/2,h/2)
+            context.fillText(this.text,this.w/2-context.measureText(this.text).width/2,this.h/2)
         }
+        this.img.src = canvas.toDataURL()
     }
     startLoading() {
         this.loading = true
@@ -48,6 +53,6 @@ class AsyncBlock {
         this.loading = false
         this.text = text
         this.render()
-        this.clearInterval(this.interval)
+        clearInterval(this.interval)
     }
 }
